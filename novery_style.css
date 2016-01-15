@@ -1,0 +1,31 @@
+textarea {
+	width: 80%;
+	height: 15em;
+	font-family: courier;
+	font-size: inherit;
+	resize: none;
+}
+
+img {
+	max-height: 80%;
+}
+
+button{
+	width: 150px;
+	height: 40px;
+	font-size: inherit;
+}
+
+.container {
+	width: 100%;
+}
+
+.left{
+	width: 60%;
+	float: left;
+}​
+
+.right {
+	width: 40%;
+	float: left;
+}

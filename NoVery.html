@@ -1,106 +1,212 @@
 <!DOCTYPE html>
 <html>
-<body>
 
-	<h1>No "very" please</h1>
+	<head>
+		<link rel="stylesheet" type="text/css" href="novery_style.css">
+	</head>
 
-	<p id="demo"></p>
-	<button type="button"
-	onclick="document.getElementById('demo').innerHTML = ''">
-	Click Me!</button>
+	<body>
 
+		<center> <h1> 'very' no more</h1> </center>
 
-	<br></br>
+		<div class="container">			
+			<div class = "left">
+				<center>
+					<textarea autofocus type="text" id="input">You can enter text here to remove 'very' from it.&#13;&#10;&#13;&#10;Example: &#13;&#10;&#13;&#10;"So avoid using the word 'very' because it's lazy. A man is not very tired, he is exhausted. Don't use very sad, use morose. Language was invented for one reason, boys - to woo women - and, in that endeavor, laziness will not do. It also won't do in your essays."</textarea>
+					<br>
+					<br>
+					<button type="button" onclick="myFunction()"> No 'very' please </button>
+					<br>
+					<br>
+					<textarea readonly placeholder = "Output text appears here" type="text" id="output"></textarea>
+				</center>
+			</div>		
+			<div class = "right">
+				<img src = "http://abigailgamble.com/wp-content/uploads/2013/09/tumblr_m7nqacNylf1ry1gtjo1_500.jpg" title = "So avoid using the word 'very' because it's lazy. A man is not very tired, he is exhausted. Don't use very sad, use morose. Language was invented for one reason, boys; to woo women, and in that endeavor laziness will not do! -- N.H. Kleinbaum, Dead Poets Society. Image source : http://abigailgamble.com/wp-content/uploads/2013/09/tumblr_m7nqacNylf1ry1gtjo1_500.jpg" align="left">
+			</div>		
+		</div>
+		
+		<script>
 
-
-	<input id="numb">
-	<button type="button" onclick="myFunction()">Submit</button>
-	<p id="demo2"></p>
-	<script>
-
-	ReplacableList = { 
-		'afraid':'terrified', 
-		'angry':'furious'
-	};
-
-	// characters that can appear before very	
-	FalseStarts = ["'", '"', '(', '—', '-'];		
-	FalseStops =  ['.', ',', '!', '?', ':', ';', '"', "'", '-', '—', ')', '('];
-
-	function capitalizeFirstLetter(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-	}
-
-	function getCanonical_first(word){
-		var pos = -1;
-		for (var i = 0; i < FalseStarts.length; i++) {
-			if (word[0] == FalseStarts[i]) {
-				pos = i;
-				break;
+			ReplacableList = { 
+				'afraid'		:	'terrified',
+				'angry'			:	'furious',
+				'bad'			:	'atrocious',
+				'beautiful'		:	'exquisite',
+				'big'			:	'immense',
+				'bright'		:	'dazzling',
+				'capable'		:	'accomplished',
+				'clean'			:	'spotless',
+				'clever'		:	'brilliant',
+				'cold'			:	'freezing',
+				'conventional'	:	'conservative',
+				'dirty'			:	'squalid',
+				'dry'			:	'parched',
+				'eager'			:	'keen',
+				'fast'			:	'quick',
+				'fierce'		:	'ferocious',
+				'good'			:	'superb',
+				'happy'			:	'jubilant',
+				'hot'			:	'scalding',
+				'hungry'		:	'ravenous',
+				'large'			:	'colossal',
+				'lively'		:	'vivacious',
+				'loved'			:	'adored',
+				'neat'			:	'immaculatd',
+				'old'			:	'ancient',
+				'poor'			:	'destitute',
+				'pretty'		:	'beautiful',
+				'quiet'			:	'silent',
+				'risky'			:	'perilous',
+				'roomy'			:	'spacious',
+				'rude'			:	'vulgar',
+				'sad'			: 	'morose', 
+				'serious'		:	'solemn',
+				'small'			:	'tiny',
+				'strong'		:	'unyielding',
+				'stupid'		:	'idiotic',
+				'tasty'			:	'delicious',
+				'thin'			:	'gaunt',
+				'tired'			:	'exhausted',
+				'ugly'			:	'hideous',
+				'valuable'		:	'precious',
+				'weak'			:	'feeble',
+				'wet'			:	'soaked',
+				'wicked'		:	'villainous',
+				'wise'			:	'sagacious',
+				'worried'		:	'anxious'
 			};
-		};
 
-		if (pos >= 0)
-			word = word.slice(1, word.length);
+			FalseStarts = ["'", '"', '(', '—', '-']; // characters that can appear before very
+			FalseStops =  ['.', ',', '!', '?', ':', ';', '"', "'", '-', '—', ')', '(']; // Characters that can appear after the word to be replaced	
 
-		var isCapitalV = false;
-		if (word[0] == "V")
-			isCapitalV = true;
+			function capitalizeFirstLetter(string) {
+				return string.charAt(0).toUpperCase() + string.slice(1);
+			}
 
-		return [pos, isCapitalV, word];
-	}
+			function getCanonical_first(word){
+				var pos = -1;
+				for (var i = 0; i < FalseStarts.length; i++) {
+					if (word[0] == FalseStarts[i]) {
+						pos = i;
+						break;
+					};
+				};
 
-	function getCanonical_last(word){
-		var pos = -1;
-		for (var i = 0; i < FalseStops.length; i++) {
-			if (word[word.length-1] == FalseStops[i]) {
-				pos = i;
-				break;
-			};
-		};
+				if (pos >= 0)
+					word = word.slice(1, word.length);
 
-		if (pos >= 0)
-			word = word.slice(0, word.length-1);
+				var isCapitalV = false;
+				if (word[0] == "V")
+					isCapitalV = true;
 
-		return [pos, word];
-	}
+				return [pos, isCapitalV, word];
+			}
 
-	function getReplacement(word) {
+			function getCanonical_last(word){
+				var pos = -1;
+				for (var i = 0; i < FalseStops.length; i++) {
+					if (word[word.length-1] == FalseStops[i]) {
+						pos = i;
+						break;
+					};
+				};
 
-		// debugPrint(word)
+				if (pos >= 0)
+					word = word.slice(0, word.length-1);
 
-		var temp = getCanonical_last(word);
-		var pos = temp[0];
-		var word = temp[1];
+				return [pos, word];
+			}
 
-		// debugPrint(temp[0]);
-		// debugPrint(temp[1]);
+			function getReplacement(word) {
+				// debugPrint(word)
 
-		var ans = -1;
-		for(var key in ReplacableList) {
-			if (key == word){
-				ans = ReplacableList[key];
-				break;
-			}			
-		}
-		if ((pos >= 0) && (ans != -1))
-			ans = ans + FalseStops[pos];
-		return ans;
-	}
+				var temp = getCanonical_last(word);
+				var pos = temp[0];
+				var word = temp[1];
+
+				// debugPrint(temp[0]);
+				// debugPrint(temp[1]);
+
+				var ans = -1;
+				var key;
 
 
-	function debugPrint(val){
-		var output = document.getElementById("demo").innerHTML;		
-		document.getElementById("demo").innerHTML = output + String(val) + ' ' ;
-	}
+				if (word in ReplacableList){
+					ans = ReplacableList[word]
+				}
 
-	function myFunction() {
+				// for(var key in ReplacableList) {
+				// 	if (key == word){
+				// 		ans = ReplacableList[key];
+				// 		break;
+				// 	}			
+				// }
+				if ((pos >= 0) && (ans != -1))
+					ans = ans + FalseStops[pos];
+				return ans;
+			}
 
-		var textIn = document.getElementById("numb").value;
-		var words = textIn.split(" ");
-		var j = 0;
-		var i = 0;
-		while(i < words.length){
+
+			function debugPrint(val){
+				var output = document.getElementById("demo").innerHTML;		
+				document.getElementById("demo").innerHTML = output + String(val) + ' ' ;
+			}
+
+			function myFunction() {
+
+				var textIn = document.getElementById("input").value;
+				var words = textIn.split(" ");
+				var j = 0;
+				var i = 0;
+				while(i < words.length){
+
+				// debugPrint(words)
+				// debugPrint
+				// debugPrint(i);
+				// debugPrint(j);
+				// debugPrint('<br>');
+
+				var temp = getCanonical_first(words[i]);
+				var pos = temp[0];
+				var isCapitalV = temp[1];
+				var word = temp[2];
+
+				// debugPrint(pos);			
+				// debugPrint(isCapitalV);
+				// debugPrint(word);
+
+				word = word.toLowerCase();
+				// debugPrint(word);
+
+				if ((word == "very") && (i < words.length - 1)){
+					var ans = getReplacement(words[i+1]);
+
+					// debugPrint(words[i+1]);
+					// debugPrint(ans);
+					// debugPrint('<br>');
+
+					if (ans != -1) {
+						if (isCapitalV){
+							ans = capitalizeFirstLetter(ans);
+						}
+						if (pos > 0){
+							ans = FalseStarts[pos] + ans;
+						}
+						words[j] = ans;
+						i++;
+					}
+					else {
+						words[j] = words[i];
+					}
+				}
+				else{
+					words[j] = words[i];
+				}   
+
+				i++;
+				j++;
+			}
 
 			// debugPrint(words)
 			// debugPrint
@@ -108,66 +214,20 @@
 			// debugPrint(j);
 			// debugPrint('<br>');
 
-			var temp = getCanonical_first(words[i]);
-			var pos = temp[0];
-			var isCapitalV = temp[1];
-			var word = temp[2];
+			words = words.slice(0, j);		
+			document.getElementById("output").innerHTML = '';
+			for (var i = 0; i < words.length; i++) {
+				document.getElementById("output").innerHTML += words[i] + ' ';
+			};		
 
-			// debugPrint(pos);			
-			// debugPrint(isCapitalV);
-			// debugPrint(word);
-
-			word = word.toLowerCase();
-			// debugPrint(word);
-
-			if ((word == "very") && (i < words.length - 1)){
-				var ans = getReplacement(words[i+1]);
-
-				// debugPrint(words[i+1]);
-				// debugPrint(ans);
-				// debugPrint('<br>');
-
-				if (ans != -1) {
-					if (isCapitalV)
-						ans = capitalizeFirstLetter(ans);
-					if (pos > 0)
-						ans = FalseStarts[pos] + ans;
-					words[j] = ans;
-					i++;
-				}
-				else {
-					words[j] = words[i];
-				}
-			}
-			else{
-				words[j] = words[i];
-			}   
-
-			i++;
-			j++;
 		}
 
-		// debugPrint(words)
-		// debugPrint
-		// debugPrint(i);
-		// debugPrint(j);
-		// debugPrint('<br>');
-
-		words = words.slice(0, j);
-		
-		document.getElementById("demo2").innerHTML = '';
-		for (var i = 0; i < words.length; i++) {
-			document.getElementById("demo2").innerHTML += words[i] + ' ';
-		};		
-
-	}
-
-	word = 'angry.';
-	temp = getReplacement(word);
-	debugPrint(temp);
+		word = 'angry.';
+		temp = getReplacement(word);
+		debugPrint(temp);
 
 
-	</script>
+		</script>
 
-</body>
+	</body>
 </html>
