@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+	<h1>No "very" please</h1>
+
+	<p id="demo"></p>
+	<button type="button"
+	onclick="document.getElementById('demo').innerHTML = ''">
+	Click Me!</button>
+
+
+	<br></br>
+
+
+	<input id="numb">
+	<button type="button" onclick="myFunction()">Submit</button>
+	<p id="demo2"></p>
+	<script>
+
+	ReplacableList = { 
+		'afraid':'terrified', 
+		'angry':'furious'
+	};
+
+	// characters that can appear before very	
+	FalseStarts = ["'", '"', '(', '—', '-'];		
+	FalseStops =  ['.', ',', '!', '?', ':', ';', '"', "'", '-', '—', ')', '('];
+
+	function capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	function getCanonical_first(word){
+		var pos = -1;
+		for (var i = 0; i < FalseStarts.length; i++) {
+			if (word[0] == FalseStarts[i]) {
+				pos = i;
+				break;
+			};
+		};
+
+		if (pos >= 0)
+			word = word.slice(1, word.length);
+
+		var isCapitalV = false;
+		if (word[0] == "V")
+			isCapitalV = true;
+
+		return [pos, isCapitalV, word];
+	}
+
+	function getCanonical_last(word){
+		var pos = -1;
+		for (var i = 0; i < FalseStops.length; i++) {
+			if (word[word.length-1] == FalseStops[i]) {
+				pos = i;
+				break;
+			};
+		};
+
+		if (pos >= 0)
+			word = word.slice(0, word.length-1);
+
+		return [pos, word];
+	}
+
+	function getReplacement(word) {
+
+		// debugPrint(word)
+
+		var temp = getCanonical_last(word);
+		var pos = temp[0];
+		var word = temp[1];
+
+		// debugPrint(temp[0]);
+		// debugPrint(temp[1]);
+
+		var ans = -1;
+		for(var key in ReplacableList) {
+			if (key == word){
+				ans = ReplacableList[key];
+				break;
+			}			
+		}
+		if ((pos >= 0) && (ans != -1))
+			ans = ans + FalseStops[pos];
+		return ans;
+	}
+
+
+	function debugPrint(val){
+		var output = document.getElementById("demo").innerHTML;		
+		document.getElementById("demo").innerHTML = output + String(val) + ' ' ;
+	}
+
+	function myFunction() {
+
+		var textIn = document.getElementById("numb").value;
+		var words = textIn.split(" ");
+		var j = 0;
+		var i = 0;
+		while(i < words.length){
+
+			// debugPrint(words)
+			// debugPrint
+			// debugPrint(i);
+			// debugPrint(j);
+			// debugPrint('<br>');
+
+			var temp = getCanonical_first(words[i]);
+			var pos = temp[0];
+			var isCapitalV = temp[1];
+			var word = temp[2];
+
+			// debugPrint(pos);			
+			// debugPrint(isCapitalV);
+			// debugPrint(word);
+
+			word = word.toLowerCase();
+			// debugPrint(word);
+
+			if ((word == "very") && (i < words.length - 1)){
+				var ans = getReplacement(words[i+1]);
+
+				// debugPrint(words[i+1]);
+				// debugPrint(ans);
+				// debugPrint('<br>');
+
+				if (ans != -1) {
+					if (isCapitalV)
+						ans = capitalizeFirstLetter(ans);
+					if (pos > 0)
+						ans = FalseStarts[pos] + ans;
+					words[j] = ans;
+					i++;
+				}
+				else {
+					words[j] = words[i];
+				}
+			}
+			else{
+				words[j] = words[i];
+			}   
+
+			i++;
+			j++;
+		}
+
+		// debugPrint(words)
+		// debugPrint
+		// debugPrint(i);
+		// debugPrint(j);
+		// debugPrint('<br>');
+
+		words = words.slice(0, j);
+		
+		document.getElementById("demo2").innerHTML = '';
+		for (var i = 0; i < words.length; i++) {
+			document.getElementById("demo2").innerHTML += words[i] + ' ';
+		};		
+
+	}
+
+	word = 'angry.';
+	temp = getReplacement(word);
+	debugPrint(temp);
+
+
+	</script>
+
+</body>
+</html>
